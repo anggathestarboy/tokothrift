@@ -147,14 +147,42 @@
                         <a href="/#about" class="hover:text-gray-600 transition-colors duration-300 font-medium">Tentang</a>
                         <a href="/#products" class="hover:text-gray-600 transition-colors duration-300 font-medium">Produk</a>
                     </div>
-                    <div class="flex space-x-3 ml-8">
-                        <button class="px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300">
-                          <a href="{{ route('auth.login') }}">Login</a> 
-                        </button>
-                        <button class="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-300 accent-shadow">
-                                        <a href="{{ route('auth.register') }}">Register</a> 
-                        </button>
-                    </div>
+                  <div class="flex space-x-3 ml-8">
+    @if(Auth::check())
+        <!-- Jika sudah login -->
+        <div class="relative group">
+            <button class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300">
+                <!-- Ikon profil -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" />
+                </svg>
+                <!-- Nama dari tabel user_fullname -->
+                <span>{{ Auth::user()->user_fullname }}</span>
+            </button>
+            <!-- Dropdown saat diklik / hover -->
+            <div class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden group-hover:block">
+                @if(Auth::user()->user_level === "Admin")
+                    <a href="{{ url('/admin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                @else
+                    <a href="{{ url('/user/dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                @endif
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+                </form>
+            </div>
+        </div>
+    @else
+        <!-- Jika belum login -->
+        <button class="px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300">
+            <a href="{{ route('auth.login') }}">Login</a> 
+        </button>
+        <button class="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-300 accent-shadow">
+            <a href="{{ route('auth.register') }}">Register</a> 
+        </button>
+    @endif
+</div>
+
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-black focus:outline-none">
@@ -171,14 +199,38 @@
                     <a href="/" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Home</a>
                     <a href="/#about" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Tentang</a>
                     <a href="/#products" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Produk</a>
-                    <div class="flex space-x-3 pt-4 pb-2">
-                        <button class="px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300 flex-1">
-                                   <a href="{{ route('auth.login') }}">Login</a> 
-                        </button>
-                        <button class="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-300 flex-1">
-                          <a href="{{ route('auth.register') }}">Register</a>
-                        </button>
-                    </div>
+             <div class="flex flex-col space-y-2 pt-4 pb-2">
+    @if(Auth::check())
+        <!-- Jika sudah login -->
+        <div class="flex items-center space-x-3 px-4 py-3 border border-gray-300 rounded-lg bg-white">
+            <!-- Ikon profil -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" />
+            </svg>
+            <span class="font-semibold text-black">{{ Auth::user()->user_fullname }}</span>
+        </div>
+        <div class="flex flex-col mt-2 border border-gray-200 rounded-lg overflow-hidden">
+            @if(Auth::user()->user_level === "Admin")
+                <a href="{{ url('/admin') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+            @else
+                <a href="{{ url('/user/dashboard') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+            @endif
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+            </form>
+        </div>
+    @else
+        <!-- Jika belum login -->
+        <button class="px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300 flex-1">
+            <a href="{{ route('auth.login') }}">Login</a> 
+        </button>
+        <button class="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-300 flex-1">
+            <a href="{{ route('auth.register') }}">Register</a>
+        </button>
+    @endif
+</div>
+
                 </div>
             </div>
         </div>
