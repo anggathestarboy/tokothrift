@@ -2,15 +2,9 @@
 
 <!-- Dashboard Content -->
 <main class="p-6 space-y-8">
-    <!-- Form Tambah Data Pakaian -->
+    <!-- Form Tambah Data Kategori -->
     <div class="data-table fade-in p-6">
         <h3 class="text-lg font-semibold mb-4">Tambah Data Kategori</h3>
-
-        @if(session('success'))
-            <div class="p-3 mb-4 text-green-800 bg-green-200 rounded">
-                {{ session('success') }}
-            </div>
-        @endif
 
         <form action="{{ route('admin.category.store') }}" method="POST">
             @csrf
@@ -36,36 +30,67 @@
         </form>
     </div>
 
-    <!-- Data Pakaian Table -->
-    
+    <!-- Search -->
+    <div class="relative mb-4">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+        🔍
+      </span>
+      <input 
+        type="search" 
+        id="searchAuthor" 
+        placeholder="Cari kategori pakaian..." 
+        class="w-full pl-10 pr-4 py-2 text-sm 
+               border border-gray-600 rounded-lg 
+               bg-gray-900 text-white
+               placeholder-gray-400
+               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+               transition-all duration-200"
+      />
+    </div>
+
+    <!-- Alert -->
+    @if(session('success'))
+    <div id="success-alert" 
+         class="p-3 mb-4 text-white bg-green-600 rounded-2xl shadow-lg">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <!-- Data Kategori Table -->
     <div class="data-table fade-in">
         <div class="table-header px-6 py-4">
             <h3 class="text-lg font-semibold text-white">Data Kategori</h3>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-left">
+            <table class="w-full text-left text-sm sm:text-base">
                 <thead>
                     <tr>
                         <th class="px-6 py-4">Nama Kategori</th>
                         <th class="px-6 py-4">Tanggal Dibuat</th>
                         <th class="px-6 py-4">Tanggal Diedit</th>
-                        <th class="px-6 py-4">Aksi</th>
+                        <th class="px-6 py-4 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($kategori as $item)
-                        <tr class="table-row">
+                   @forelse($kategori as $item)
+                        <tr class="table-row" data-id="{{ $item->kategori_pakaian_id }}">
                             <td class="px-6 py-4">{{ $item->kategori_pakaian_nama }}</td>
-                         <td class="px-6 py-4">{{ $item->created_at->format('Y-m-d') }}</td>
-                         <td class="px-6 py-4">{{ $item->updated_at->format('Y-m-d') }}</td>
-                            <td class="px-6 py-4  space-x-2">
-                                <button class="btn-edit">Edit</button>
-                                <button class="btn-delete">Delete</button>
+                            <td class="px-6 py-4">{{ $item->created_at->format('Y-m-d') }}</td>
+                            <td class="px-6 py-4">{{ $item->updated_at->format('Y-m-d') }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 justify-end">
+                                    <button class="btn-edit w-full sm:w-auto">Edit</button>
+                                    <form action="{{ route('admin.category.destroy', $item->kategori_pakaian_id) }}" method="POST" class="inline w-full sm:w-auto">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-delete w-full sm:w-auto" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2" class="px-6 py-4 text-center text-gray-500">Belum ada data</td>
+                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada data</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -78,77 +103,131 @@
         </div>
     </div>
 </main>
+
+</div>
+
+<!-- Modal Edit -->
+<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-gray-900 text-white rounded-2xl shadow-2xl w-full max-w-md p-6 border border-gray-700 mx-4">
+        <h2 class="text-xl font-bold mb-4 text-center tracking-wide">✦ Edit Kategori ✦</h2>
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" id="editId" name="id">
+
+            <div class="mb-4">
+                <label class="block text-sm mb-2 text-gray-300">Nama Kategori</label>
+                <input type="text" id="editNama" name="kategori_pakaian_nama" 
+                    class="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    placeholder="Masukkan nama kategori" required>
+            </div>
+
+            <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 mt-6">
+                <button type="button" id="closeModal" 
+                    class="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition w-full sm:w-auto">
+                    Batal
+                </button>
+                <button type="submit" 
+                    class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md transition w-full sm:w-auto">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu functionality
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const fileUpload = document.getElementById('fileUpload');
-        const fileInput = document.querySelector('.file-input');
+  document.addEventListener('DOMContentLoaded', function() {
+    // HAMBURGER MENU
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const sidebar = document.getElementById('sidebar');
 
-        function toggleMenu() {
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', function() {
             sidebar.classList.toggle('active');
-            
-            // Mengubah ikon menu saat dibuka/ditutup
-            if (sidebar.classList.contains('active')) {
-                mobileMenuButton.innerHTML = '✕';
-                mobileMenuButton.style.fontSize = '28px';
-            } else {
-                mobileMenuButton.innerHTML = '☰';
-                mobileMenuButton.style.fontSize = '24px';
-            }
-        }
-
-        if(mobileMenuButton){
-            mobileMenuButton.addEventListener('click', toggleMenu);
-        }
-        
-        // Button click effects
-        const buttons = document.querySelectorAll('.btn-edit, .btn-delete');
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Simple click effect
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-                
-                // Demo only
-                if (this.textContent.includes('Edit')) {
-                    alert('Edit functionality belum diimplementasikan');
-                } else if (this.textContent.includes('Delete')) {
-                    if (confirm('Yakin ingin menghapus data ini?')) {
-                        alert('Delete functionality belum diimplementasikan');
-                    }
-                }
-            });
+            mobileMenuButton.innerHTML = sidebar.classList.contains('active') ? '✕' : '☰';
         });
+    }
 
-        // File upload interaction
-        if (fileInput && fileUpload) {
-            fileInput.addEventListener('click', function() {
-                fileUpload.click();
-            });
-            
-            fileUpload.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    fileInput.innerHTML = `<span>${this.files[0].name}</span>`;
+    // SEARCH
+    const searchInput = document.getElementById('searchAuthor');
+    const tableBody = document.querySelector('tbody');
+
+    function fetchCategories(query = '') {
+        fetch(`/admin/category/search?kategori_pakaian_nama=${query}`)
+            .then(res => res.json())
+            .then(data => {
+                tableBody.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(item => {
+                        tableBody.innerHTML += `
+                            <tr class="table-row" data-id="${item.kategori_pakaian_id}">
+                                <td class="px-6 py-4">${item.kategori_pakaian_nama}</td>
+                                <td class="px-6 py-4">${new Date(item.created_at).toLocaleDateString()}</td>
+                                <td class="px-6 py-4">${new Date(item.updated_at).toLocaleDateString()}</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 justify-end">
+                                        <button class="btn-edit w-full sm:w-auto">Edit</button>
+                                        <form action="/admin/category/${item.kategori_pakaian_id}" method="POST" class="inline w-full sm:w-auto">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-delete w-full sm:w-auto" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    });
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">Tidak ada hasil</td>
+                        </tr>`;
                 }
-            });
+            })
+            .catch(err => console.error(err));
+    }
+
+    fetchCategories();
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            fetchCategories(this.value.trim());
+        });
+    }
+
+    // EDIT MODAL
+    const editModal = document.getElementById('editModal');
+    const closeModal = document.getElementById('closeModal');
+    const editForm = document.getElementById('editForm');
+    const editId = document.getElementById('editId');
+    const editNama = document.getElementById('editNama');
+
+    document.addEventListener('click', function(e) {
+        // OPEN MODAL
+        if (e.target.classList.contains('btn-edit')) {
+            const row = e.target.closest('tr');
+            editId.value = row.dataset.id;
+            editNama.value = row.querySelector('td').textContent.trim();
+            editForm.action = `/admin/category/${row.dataset.id}`;
+            editModal.classList.remove('hidden');
         }
 
-        // Adjust layout on resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 1024) {
-                sidebar.classList.remove('active');
-                mobileMenuButton.innerHTML = '☰';
-                mobileMenuButton.style.fontSize = '24px';
-            }
-        });
+        // CLOSE MODAL
+        if (e.target.id === 'closeModal') {
+            editModal.classList.add('hidden');
+        }
     });
+
+    // AUTO HIDE ALERT
+    let alert = document.getElementById("success-alert");
+    if (alert) {
+        setTimeout(() => {
+            alert.style.transition = "opacity 0.5s ease";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        }, 2500);
+    }
+  });
 </script>
 </body>
 </html>

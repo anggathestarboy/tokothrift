@@ -18,4 +18,10 @@ class Category extends Model
     protected $fillable = [
         'kategori_pakaian_nama',
     ];
+
+    public static function getCategoryByName (string $kategori_pakaian_nama) {
+    $categories = self::where('kategori_pakaian_nama', 'like', '%' . $kategori_pakaian_nama . '%')->get();
+
+    return $categories;
+}
 }

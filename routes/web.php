@@ -6,8 +6,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\CheckAuthMiddleware;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Middleware\CheckIsUserRoleMiddleware;
 use App\Http\Middleware\CheckIsAdminRoleMiddleware;
 
@@ -44,16 +44,20 @@ Route::middleware(CheckAuthMiddleware::class)->group(function () {
              
             });
             Route::controller(TableController::class)->group(function () {
-                Route::get('/users', 'index')->name('admin.users');
+                Route::get('/pakaian', 'index')->name('admin.pakaian.index');
+                Route::post('/pakaian', 'store')->name('admin.pakaian.store');
              
             });
-            Route::controller(CategoryController::class)->group(function () {
-                Route::get('/category', 'index')->name('admin.category');
-                Route::post('/category', 'store')->name('admin.category.store');
- 
+        Route::controller(CategoryController::class)->prefix('category')->group(function () {
+    Route::get('/', 'index')->name('admin.category');
+    Route::post('/', 'store')->name('admin.category.store');
+    Route::put('/{id}', 'update')->name('admin.category.update');
+    Route::delete('/{id}', 'destroy')->name('admin.category.destroy');
 
-             
-            });
+
+    Route::get('/search', 'search')->name('admin.category.search');
+});
+            
             
        
         });
@@ -72,3 +76,6 @@ Route::middleware(CheckAuthMiddleware::class)->group(function () {
         });
     });
 });
+
+
+

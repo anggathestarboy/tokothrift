@@ -7,6 +7,8 @@
     <title>Dashboard Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -355,7 +357,7 @@
                     </svg>
                     Dashboard
                 </a>
-                <a href="/admin/users" class="menu-item flex items-center px-4 py-3 text-sm text-gray-300">
+                <a href="/admin/pakaian" class="menu-item flex items-center px-4 py-3 text-sm text-gray-300">
                     <svg class="icon mr-3" viewBox="0 0 24 24">
                         <path d="M16 7c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm4 0c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4zM12 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0-6c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
                     </svg>
@@ -367,7 +369,7 @@
                     </svg>
                     Pembelian
                 </a>
-                <a href="#" class="menu-item flex items-center px-4 py-3 text-sm text-gray-300">
+                <a href="/admin/category" class="menu-item flex items-center px-4 py-3 text-sm text-gray-300">
                     <svg class="icon mr-3" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
@@ -392,11 +394,7 @@
                     <h2 class="text-xl font-semibold text-white">Data Management</h2>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <input 
-                        type="text" 
-                        placeholder="Search data..." 
-                        class="search-input"
-                    >
+                    
                     <div class="flex items-center space-x-2 user-info">
                         <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
                             <span class="text-black font-semibold text-sm">A</span>
