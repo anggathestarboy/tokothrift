@@ -42,4 +42,9 @@ class User extends Authenticatable
 
     return $user;
 }
+
+  public function metodes()
+    {
+        return $this->hasMany(MetodePembayaran::class, 'metode_pembayaran_user_id', 'user_id');
+    }
 }

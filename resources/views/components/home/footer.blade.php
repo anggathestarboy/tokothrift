@@ -32,7 +32,7 @@
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animationDelay = '0s';
+                    entry.target.style.animationDelay = '0,5s';
                     entry.target.classList.add('animate');
                 }
             });

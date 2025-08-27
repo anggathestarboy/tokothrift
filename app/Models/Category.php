@@ -24,4 +24,10 @@ class Category extends Model
 
     return $categories;
 }
+
+public function pakaian()
+    {
+        return $this->hasMany(Pakaian::class, 'kategori_pakaian_id', 'pakaian_id');
+    }
+
 }

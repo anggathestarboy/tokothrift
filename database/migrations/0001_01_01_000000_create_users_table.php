@@ -19,7 +19,7 @@ return new class extends Migration
         $table->string('user_email', 50)->unique();
         $table->char('user_nohp', 13);
         $table->string('user_alamat', 200);
-        $table->string('user_profil_url', 255)->default('url_placeholder_profil');
+        $table->string('user_profil_url', 255)->nullable();
         $table->enum('user_level', ['Admin', 'Pengguna'])->default('Pengguna');
         $table->timestamps();
         });

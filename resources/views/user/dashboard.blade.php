@@ -1,97 +1,7 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKO THRIFT - Marketplace Pakaian Bekas Berkualitas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        .price-tag {
-            background: linear-gradient(45deg, #000, #333);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-        .nav-item {
-            transition: all 0.3s ease;
-        }
-        .nav-item:hover {
-            color: #d1d5db;
-        }
-        .search-input {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #000;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body class="bg-white text-gray-900">
-    <!-- Navigation Bar -->
-    <nav class="gradient-bg text-white shadow-2xl sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo & Brand -->
-                <div class="flex items-center space-x-4">
-                    <div class="bg-white text-black p-2 rounded-lg">
-                        <i class="fas fa-tshirt text-xl"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold tracking-wider">TOKO THRIFT</h1>
-                        <p class="text-xs text-gray-300">Preloved Fashion</p>
-                    </div>
-                </div>
+<x-user.navigasi />
 
-                <!-- Search Bar -->
-                <div class="hidden md:flex flex-1 max-w-lg mx-8">
-                    <div class="relative w-full">
-                        <input type="text" 
-                               placeholder="Cari pakaian thrift impian kamu..." 
-                               class="w-full px-4 py-2 pl-10 rounded-full search-input text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-300"></i>
-                    </div>
-                </div>
 
-                <!-- Navigation Items -->
-                <div class="flex items-center space-x-6">
-                
-                    <a href="#" class="nav-item flex items-center space-x-1">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="hidden sm:inline">Keranjang</span>
-                        <span class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-1">3</span>
-                    </a>
-                    <div class="flex items-center space-x-2">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face&rounded" 
-                             alt="Profile" 
-                             class="w-8 h-8 rounded-full border-2 border-white">
-                        <span class="hidden sm:inline text-sm">User</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+
 
     <!-- Hero Section -->
     <section class="gradient-bg text-white py-20">
@@ -113,265 +23,191 @@
 
     <!-- Categories -->
     <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-12">Kategori Pilihan</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-xl p-6 text-center shadow-lg card-hover cursor-pointer">
-                    <i class="fas fa-tshirt text-4xl text-gray-700 mb-4"></i>
-                    <h4 class="font-semibold">Kaos & T-Shirt</h4>
-                    <p class="text-sm text-gray-500">120+ items</p>
-                </div>
-                <div class="bg-white rounded-xl p-6 text-center shadow-lg card-hover cursor-pointer">
-                    <i class="fas fa-user-tie text-4xl text-gray-700 mb-4"></i>
-                    <h4 class="font-semibold">Kemeja</h4>
-                    <p class="text-sm text-gray-500">85+ items</p>
-                </div>
-                <div class="bg-white rounded-xl p-6 text-center shadow-lg card-hover cursor-pointer">
-                    <i class="fas fa-female text-4xl text-gray-700 mb-4"></i>
-                    <h4 class="font-semibold">Dress</h4>
-                    <p class="text-sm text-gray-500">95+ items</p>
-                </div>
-                <div class="bg-white rounded-xl p-6 text-center shadow-lg card-hover cursor-pointer">
-                    <i class="fas fa-shoe-prints text-4xl text-gray-700 mb-4"></i>
-                    <h4 class="font-semibold">Sepatu</h4>
-                    <p class="text-sm text-gray-500">60+ items</p>
-                </div>
-            </div>
+    <div class="container mx-auto px-4">
+        <h3 class="text-3xl font-bold text-center mb-12">Kategori Pilihan</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            @foreach($kategori as $kat)
+                <a href="{{ route('kategori.show', $kat->kategori_pakaian_id) }}">
+                    <div class="bg-white rounded-xl p-5 text-center shadow-lg card-hover cursor-pointer 
+                                {{ isset($kategoriAktif) && $kategoriAktif->kategori_pakaian_id == $kat->kategori_pakaian_id ? 'border-2 border-black' : '' }}">
+                        <h4 class="font-semibold">{{ $kat->kategori_pakaian_nama }}</h4>
+                    </div>
+                </a>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
+
+<br><br>
+
+
+
+<!-- Search hanya di mobile --> <div class="px-4 py-2 sm:hidden"> <input type="text" id="searchPakaianMobile" placeholder="Cari produk di mobile..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" > </div>
+
+
+ @if(session('error'))
+        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Products Grid -->
     <section class="py-16">
         <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-12">
-                <h3 class="text-3xl font-bold">Produk Terbaru</h3>
-                <div class="flex space-x-4">
-                    <select class="px-4 py-2 border border-gray-300 rounded-lg">
-                        <option>Urutkan: Terbaru</option>
-                        <option>Harga: Rendah ke Tinggi</option>
-                        <option>Harga: Tinggi ke Rendah</option>
-                        <option>Populer</option>
-                    </select>
+
+           <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 space-y-3 sm:space-y-0">
+    @if(isset($kategoriAktif))
+        <a href="{{ route('user.dashboard') }}">
+            <button class="bg-black text-white px-3 py-2 rounded-xl text-sm sm:text-base">
+                &laquo; Kembali ke Halaman Utama
+            </button>
+        </a>
+        <br><br>
+        <h3 class="text-xl text-center sm:text-left">
+            Produk Kategori: {{ $kategoriAktif->kategori_pakaian_nama }}
+        </h3>
+        
+    @else
+        <h3 class="text-xl sm:text-2xl text-center">
+            Produk Terbaru
+        </h3>
+    @endif
+</div>
+
+
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 space-y-3 sm:space-y-0">
+
+
+           <div id="produkGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    @foreach($pakaian as $data)
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+            <div class="relative">
+                <img src="{{ asset('storage/' . $data->pakaian_gambar_url) }}" 
+                     alt="Foto Baju" 
+                     class="w-full h-64 object-cover">
+                <div class="product-badge">{{ $data->kategori->kategori_pakaian_nama }}</div>
+            </div>
+            <div class="p-4">
+                <h4 class="font-semibold text-lg mb-2">{{ $data->pakaian_nama }}</h4>
+                <p class="text-gray-600 text-sm mb-3">Stok: {{ $data->pakaian_stok }}</p>
+                <div class="flex justify-between items-center" style="gap: 10px">
+                    <span class="price-tag">Rp {{ number_format($data->pakaian_harga, 2, ',', '.') }}</span>
+       <button data-id="{{ $data->pakaian_id }}" 
+        class="btn-checkout bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+Checkout
+
+</button>
+ {{-- Tombol Keranjang --}}
+    <form action="{{ route('user.metode.create') }}" method="POST" class="inline">
+        @csrf
+        <input type="hidden" name="pakaian_id" value="{{ $data->pakaian_id }}">
+        <input type="hidden" name="jumlah" value="1">
+    {{-- Tombol Keranjang --}}
+<button 
+    type="button" 
+    data-id="{{ $data->pakaian_id }}" 
+    data-nama="{{ $data->pakaian_nama }}" 
+    class="btn-keranjang bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+    <i class="fas fa-shopping-cart"></i>
+
+</button>
+    </form>
+
                 </div>
             </div>
+        </div>
+    @endforeach
+</div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Product 1 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop" 
-                             alt="Vintage T-Shirt" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">VINTAGE</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Vintage Band T-Shirt</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Sangat Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 45.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+<!-- Modal Keranjang -->
+<div id="keranjangModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 w-96 shadow-xl">
+        <h3 class="text-xl font-bold mb-4">Tambah ke Keranjang</h3>
+        <p id="keranjangNama" class="mb-4 text-gray-700"></p>
+        <form id="keranjangForm" method="POST" action="{{ route('user.metode.create') }}">
+            @csrf
+            <input type="hidden" name="pakaian_id" id="keranjangPakaianId">
+            
+            <label for="jumlah" class="block text-sm font-medium text-gray-700">Jumlah</label>
+            <input type="number" name="jumlah" id="keranjangJumlah" min="1" value="1" 
+                   class="w-full border px-3 py-2 rounded-lg mb-4" required>
 
-                <!-- Product 2 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300&h=300&fit=crop" 
-                             alt="Denim Jacket" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">TRENDY</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Denim Jacket Classic</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 85.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=300&h=300&fit=crop" 
-                             alt="Summer Dress" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">SALE</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Floral Summer Dress</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Sangat Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 65.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=300&h=300&fit=crop" 
-                             alt="Sneakers" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">LIMITED</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Retro Sneakers</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 125.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?w=300&h=300&fit=crop" 
-                             alt="Hoodie" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">NEW</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Oversized Hoodie</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Sangat Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 75.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop" 
-                             alt="Blouse" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">CLASSIC</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Elegant Blouse</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 55.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 7 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=300&h=300&fit=crop" 
-                             alt="Jeans" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">VINTAGE</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">High Waist Jeans</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Sangat Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 95.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 8 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=300&h=300&fit=crop" 
-                             alt="Blazer" 
-                             class="w-full h-64 object-cover">
-                        <div class="product-badge">FORMAL</div>
-                        <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow-lg hover:bg-gray-100">
-                            <i class="far fa-heart text-gray-600"></i>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-2">Classic Blazer</h4>
-                        <p class="text-gray-600 text-sm mb-3">Kondisi: Baik</p>
-                        <div class="flex justify-between items-center">
-                            <span class="price-tag">Rp 115.000</span>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button class="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition">
-                    Lihat Lebih Banyak
+            <div class="flex justify-end space-x-2">
+                <button type="button" onclick="closeKeranjangModal()" 
+                        class="px-4 py-2 bg-gray-300 rounded-lg">
+                    Batal
+                </button>
+                <button type="submit" 
+                        class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-700">
+                    Tambah
                 </button>
             </div>
-        </div>
-    </section>
+        </form>
+    </div>
+</div>
 
-    <!-- Features Section -->
-    <section class="py-16 bg-gray-900 text-white">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-12">Mengapa Pilih TOKO THRIFT?</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <i class="fas fa-recycle text-4xl mb-4 text-green-400"></i>
-                    <h4 class="text-xl font-semibold mb-2">Ramah Lingkungan</h4>
-                    <p class="text-gray-300">Berpartisipasi dalam gerakan fashion berkelanjutan dengan membeli pakaian bekas berkualitas.</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-tags text-4xl mb-4 text-yellow-400"></i>
-                    <h4 class="text-xl font-semibold mb-2">Harga Terjangkau</h4>
-                    <p class="text-gray-300">Dapatkan fashion branded dengan harga yang jauh lebih terjangkau tanpa mengurangi kualitas.</p>
-                </div>
-                <div class="text-center">
-                    <i class="fas fa-star text-4xl mb-4 text-purple-400"></i>
-                    <h4 class="text-xl font-semibold mb-2">Kualitas Terjamin</h4>
-                    <p class="text-gray-300">Setiap produk telah melalui proses seleksi ketat untuk memastikan kualitas terbaik.</p>
-                </div>
+
+
+<!-- Modal Checkout -->
+<div id="checkoutModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 w-96 shadow-xl">
+
+        {{-- Kondisi jika user belum punya metode pembayaran --}}
+        @if(auth()->user()->metodes->isEmpty())
+            <h3 class="text-xl font-bold mb-4">Metode Pembayaran Tidak Ditemukan</h3>
+            <p class="text-gray-600 mb-6">
+                Anda belum mempunyai metode pembayaran. Silakan tambahkan terlebih dahulu sebelum melanjutkan checkout.
+            </p>
+
+            <div class="flex justify-end space-x-2 mt-4">
+                <button type="button" onclick="closeCheckoutModal()" class="px-4 py-2 bg-gray-300 rounded-lg">
+                    Tutup
+                </button>
+                <a href="{{ route('metode.index') }}" class="px-4 py-2 bg-black text-white rounded-lg">
+                    Tambahkan Sekarang!
+                </a>
             </div>
-        </div>
+
+        @else
+            <h3 class="text-xl font-bold mb-4">Pilih Metode Pembayaran</h3>
+            <form id="checkoutForm" method="POST" action="{{ route('checkout.store') }}">
+                @csrf
+                <input type="hidden" name="pakaian_id" id="checkoutPakaianId">
+                <input type="hidden" name="jumlah" value="1"> 
+
+                <!-- List metode user -->
+                <div id="userMetodeContainer" class="space-y-2">
+                    @foreach(auth()->user()->metodes as $metode)
+                        @if(strtolower($metode->metode_pembayaran_jenis) !== 'cod')
+                            <label class="flex items-center space-x-2 border rounded-lg p-2 cursor-pointer hover:bg-gray-100">
+                                <input type="radio" name="metode_pembayaran" value="{{ $metode->metode_pembayaran_id }}" required>
+                                <span>{{ $metode->metode_pembayaran_jenis }} {{ $metode->metode_pembayaran_nomor ? '- '.$metode->metode_pembayaran_nomor : '' }}</span>
+                            </label>
+                        @endif
+                    @endforeach
+                </div>
+
+                <div class="flex justify-end space-x-2 mt-4">
+                    <button type="button" onclick="closeCheckoutModal()" class="px-4 py-2 bg-gray-300 rounded-lg">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-black text-white rounded-lg">
+                        Bayar
+                    </button>
+                </div>
+            </form>
+        @endif
+
+    </div>
+</div>
+
+
+
+
+
+        
+
+               
     </section>
 
     <!-- Footer -->
@@ -396,20 +232,19 @@
                 <div>
                     <h5 class="font-semibold mb-4">Kategori</h5>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Kaos & T-Shirt</a></li>
-                        <li><a href="#" class="hover:text-white">Kemeja</a></li>
-                        <li><a href="#" class="hover:text-white">Dress</a></li>
-                        <li><a href="#" class="hover:text-white">Sepatu</a></li>
-                        <li><a href="#" class="hover:text-white">Aksesoris</a></li>
+                        @foreach ($kategori as $kat)
+                            
+                        <li><a href="{{ route('kategori.show', $kat->kategori_pakaian_id) }}" class="hover:text-white">{{ $kat->kategori_pakaian_nama }}</a></li>
+                        @endforeach
+
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-4">Bantuan</h5>
+                    <h5 class="font-semibold mb-4">Menu</h5>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white">Cara Berbelanja</a></li>
-                        <li><a href="#" class="hover:text-white">Kebijakan Return</a></li>
-                        <li><a href="#" class="hover:text-white">Hubungi Kami</a></li>
+                        <li><a href="{{  route('user.dashboard') }}" class="hover:text-white">Home</a></li>
+                        <li><a href="{{  route('user.profile.index') }}" class="hover:text-white">Profile</a></li>
+
                     </ul>
                 </div>
                 <div>
@@ -424,60 +259,163 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 TOKO THRIFT. All rights reserved. Made with ❤️ for sustainable fashion.</p>
+                <p>&copy; 2025 TOKO THRIFT. All rights reserved</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Simple cart functionality
-        let cartCount = 3;
-        
-        // Add hover effects and animations
-        document.querySelectorAll('.card-hover').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
 
-        // Heart wishlist toggle
-        document.querySelectorAll('.fa-heart').forEach(heart => {
-            heart.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (this.classList.contains('far')) {
-                    this.classList.remove('far');
-                    this.classList.add('fas');
-                    this.style.color = 'red';
-                } else {
-                    this.classList.remove('fas');
-                    this.classList.add('far');
-                    this.style.color = '';
-                }
-            });
-        });
 
-        // Add to cart functionality
-        document.querySelectorAll('.fa-cart-plus').forEach(btn => {
-            btn.addEventListener('click', function() {
-                cartCount++;
-                document.querySelector('.bg-red-500').textContent = cartCount;
-                
-                // Show feedback
-                this.classList.remove('fa-cart-plus');
-                this.classList.add('fa-check');
-                this.parentElement.style.background = 'green';
-                
-                setTimeout(() => {
-                    this.classList.remove('fa-check');
-                    this.classList.add('fa-cart-plus');
-                    this.parentElement.style.background = '';
-                }, 1000);
+<script>
+// daftar input search yang dipakai (desktop & mobile)
+['searchPakaianDesktop', 'searchPakaianMobile'].forEach(id => {
+    let input = document.getElementById(id);
+    if (input) {
+        input.addEventListener('keyup', function() {
+            let query = this.value.trim();
+
+            // jika kosong -> load semua produk
+            if (query === "") {
+                fetch(`{{ route('pakaian.search') }}`)
+                    .then(res => res.json())
+                    .then(renderProduk);
+                return;
+            }
+
+            // jika ada isi -> search
+            fetch(`{{ route('pakaian.search') }}?q=${query}`)
+                .then(res => res.json())
+                .then(renderProduk);
+        });
+    }
+});
+
+// fungsi render produk
+function renderProduk(data) {
+    let container = document.getElementById('produkGrid');
+    container.innerHTML = '';
+
+    if (!data || data.length === 0) {
+        container.innerHTML = '<p class="text-center col-span-4">Tidak ada produk ditemukan</p>';
+        return;
+    }
+
+    data.forEach(item => {
+        let harga = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        }).format(item.pakaian_harga);
+
+        container.innerHTML += `
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+            <div class="relative">
+                <img src="/storage/${item.pakaian_gambar_url}" 
+                     alt="Foto Baju" 
+                     class="w-full h-64 object-cover">
+                <div class="product-badge">${item.kategori.kategori_pakaian_nama}</div>
+            </div>
+            <div class="p-4">
+                <h4 class="font-semibold text-lg mb-2">${item.pakaian_nama}</h4>
+                <p class="text-gray-600 text-sm mb-3">Stok: ${item.pakaian_stok}</p>
+                <div class="flex justify-between items-center gap-2">
+                    <span class="price-tag">${harga}</span>
+                    
+                    <!-- Tombol Checkout -->
+                    <button data-id="${item.pakaian_id}" 
+                        class="btn-checkout bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+                        Checkout
+                    </button>
+
+                    <!-- Tombol Keranjang -->
+                    <button 
+                        type="button" 
+                        data-id="${item.pakaian_id}" 
+                        data-nama="${item.pakaian_nama}" 
+                        class="btn-keranjang bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    // re-bind event setelah render ulang
+    document.querySelectorAll('.btn-checkout').forEach(btn => {
+        btn.addEventListener('click', function() {
+            let pakaianId = this.getAttribute('data-id');
+            openCheckoutModal(pakaianId);
+        });
+    });
+
+    document.querySelectorAll('.btn-keranjang').forEach(btn => {
+        btn.addEventListener('click', function() {
+            let pakaianId = this.getAttribute('data-id');
+            let nama = this.getAttribute('data-nama');
+            openKeranjangModal(pakaianId, nama);
+        });
+    });
+}
+
+
+
+function openCheckoutModal(pakaianId) {
+    document.getElementById('checkoutModal').classList.remove('hidden');
+    document.getElementById('checkoutPakaianId').value = pakaianId;
+
+    // fetch metode pembayaran user
+    fetch(`{{ route('metode.user') }}`)
+        .then(res => res.json())
+        .then(data => {
+            let container = document.getElementById('userMetodeContainer');
+            container.innerHTML = "";
+
+            data.forEach(item => {
+                container.innerHTML += `
+                    <div class="mb-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="metode_pembayaran" value="${item.metode_pembayaran_id}">
+                            <span>${item.metode_pembayaran_jenis} - ${item.metode_pembayaran_nomor ?? ''}</span>
+                        </label>
+                    </div>
+                `;
             });
         });
-    </script>
+}
+
+function closeCheckoutModal() {
+    document.getElementById('checkoutModal').classList.add('hidden');
+}
+
+// Ganti tombol checkout agar buka modal
+document.querySelectorAll('.btn-checkout').forEach(btn => {
+    btn.addEventListener('click', function() {
+        let pakaianId = this.getAttribute('data-id');
+        openCheckoutModal(pakaianId);
+    });
+});
+
+function openKeranjangModal(pakaianId, nama) {
+    document.getElementById('keranjangModal').classList.remove('hidden');
+    document.getElementById('keranjangPakaianId').value = pakaianId;
+    document.getElementById('keranjangNama').innerText = "Produk: " + nama;
+    document.getElementById('keranjangJumlah').value = 1; // default 1
+}
+
+function closeKeranjangModal() {
+    document.getElementById('keranjangModal').classList.add('hidden');
+}
+
+// Event untuk tombol keranjang
+document.querySelectorAll('.btn-keranjang').forEach(btn => {
+    btn.addEventListener('click', function() {
+        let pakaianId = this.getAttribute('data-id');
+        let nama = this.getAttribute('data-nama');
+        openKeranjangModal(pakaianId, nama);
+    });
+});
+
+</script>
+
+
 </body>
 </html>

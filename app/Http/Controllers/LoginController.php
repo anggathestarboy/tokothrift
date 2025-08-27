@@ -28,7 +28,7 @@ class LoginController extends Controller
         if ($user->user_level === "Admin") {
             return redirect('/admin');
         } elseif ($user->user_level === "Pengguna") {
-            return redirect('/user/dashboard');
+            return redirect('/user/home');
         } else {
             Auth::logout();
             return redirect()->back()->with('error', 'Role tidak dikenali!');

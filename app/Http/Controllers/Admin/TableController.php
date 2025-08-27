@@ -11,7 +11,7 @@ class TableController extends Controller
 {
     public function index()
     {
-        $pakaian = Pakaian::with('kategori')->latest()->paginate(10);
+        $pakaian = Pakaian::with('kategori')->latest()->paginate(5);
         $kategori = Category::all();
 
         return view('admin.pakaian', compact('pakaian', 'kategori'));
@@ -36,4 +36,49 @@ class TableController extends Controller
 
         return redirect()->route('admin.pakaian.index')->with('success', 'Pakaian berhasil ditambahkan!');
     }
+
+  public function search(Request $request) {
+    $pakaian_nama = $request->query('pakaian_nama', '');
+    $pakaian = Pakaian::getPakaianByName($pakaian_nama);
+
+    return response()->json($pakaian);
+}
+
+
+public function edit($id)
+{
+    $pakaian = Pakaian::findOrFail($id);
+    return response()->json($pakaian);
+}
+
+public function update(Request $request, $id)
+{
+    $pakaian = Pakaian::findOrFail($id);
+
+    $pakaian->update([
+        'pakaian_nama' => $request->pakaian_nama,
+        'pakaian_harga' => $request->pakaian_harga,
+        'pakaian_stok' => $request->pakaian_stok,
+        'pakaian_kategori_pakaian_id' => $request->pakaian_kategori_pakaian_id,
+    ]);
+
+    if ($request->hasFile('pakaian_gambar_url')) {
+        $path = $request->file('pakaian_gambar_url')->store('pakaian', 'public');
+        $pakaian->update(['pakaian_gambar_url' => $path]);
+    }
+
+    return redirect()->route('admin.pakaian.index')->with('success', 'Data pakaian berhasil diperbarui');
+}
+
+public function destroy($id)
+{
+    $pakaian = Pakaian::findOrFail($id);
+    $pakaian->delete();
+
+    return response()->json(['message' => 'Data pakaian berhasil dihapus']);
+}
+
+
+
+
 }

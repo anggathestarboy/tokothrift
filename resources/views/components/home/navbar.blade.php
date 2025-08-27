@@ -164,7 +164,7 @@
                 @if(Auth::user()->user_level === "Admin")
                     <a href="{{ url('/admin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
                 @else
-                    <a href="{{ url('/user/dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                    <a href="{{ url('/user/home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -213,7 +213,7 @@
             @if(Auth::user()->user_level === "Admin")
                 <a href="{{ url('/admin') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
             @else
-                <a href="{{ url('/user/dashboard') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                <a href="{{ url('/user/home') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
             @endif
             <form action="{{ route('logout') }}" method="POST">
                 @csrf

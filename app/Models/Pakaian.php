@@ -25,4 +25,11 @@ class Pakaian extends Model
     {
         return $this->belongsTo(Category::class, 'pakaian_kategori_pakaian_id', 'kategori_pakaian_id');
     }
+public static function getPakaianByName(string $pakaian_nama)
+{
+    return self::with('kategori')
+        ->where('pakaian_nama', 'like', '%' . $pakaian_nama . '%')
+        ->get();
+}
+
 }
