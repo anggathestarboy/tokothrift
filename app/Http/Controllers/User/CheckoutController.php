@@ -21,6 +21,12 @@ class CheckoutController extends Controller
                 ->with('error', 'Anda belum mempunyai metode pembayaran. Silakan tambahkan terlebih dahulu.');
         }
 
+        if (!$request->filled('metode_pembayaran')) {
+    return redirect()->back()
+        ->with('error', 'Silakan pilih metode pembayaran terlebih dahulu.');
+}
+
+
         // Ambil data pakaian
         $pakaian = Pakaian::findOrFail($request->pakaian_id);
 

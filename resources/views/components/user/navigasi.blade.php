@@ -83,10 +83,9 @@
                 <!-- Navigation Items -->
                 <div class="flex items-center space-x-6">
                 
-                    <a href="#" class="nav-item flex items-center space-x-1">
+                    <a href="{{  route('keranjang.index')}}" class="nav-item flex items-center space-x-1">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="hidden sm:inline">Keranjang</span>
-                        <span class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-1">3</span>
                     </a>
                   <!-- Wrapper -->
 <div x-data="{ open: false }" class="relative">
@@ -131,6 +130,10 @@
            class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
             Edit Profil
         </a>
+        <a href="{{ route('pesanan') }}" 
+           class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+            Pesanan
+        </a>
         <a href="{{ route('metode.index') }}" 
            class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
             Metode Pembayaran
@@ -140,7 +143,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" 
-                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
+                    class="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100 transition">
                 Logout
             </button>
         </form>

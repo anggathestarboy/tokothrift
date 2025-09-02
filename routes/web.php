@@ -11,11 +11,15 @@ use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\admin\InfoPembelianController;
 use App\Http\Controllers\User\KeranjangController;
 use App\Http\Middleware\CheckIsUserRoleMiddleware;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Middleware\CheckIsAdminRoleMiddleware;
 use App\Http\Controllers\User\MetodePembayaranController;
+use App\Models\Keranjang;
+use App\Http\Controllers\User\PembelianController;
+
 
 Route::get('/', function () {
     return view('home');
@@ -75,6 +79,9 @@ Route::put('/pakaian/{id}', 'update')->name('admin.pakaian.update'); // untuk up
 
     Route::get('/search', 'search')->name('admin.category.search');
 });
+
+ Route::get('/pembelian', [InfoPembelianController::class, 'index'])->name('admin.pembelian');
+
             
             
        
@@ -109,8 +116,34 @@ Route::get('/search-pakaian',  'search')->name('pakaian.search');
     Route::get('/metode/{id}/edit', 'edit')->name('metode.edit');
     Route::put('/metode/{id}', 'update')->name('metode.update');
     Route::delete('/metode/{id}',  'destroy')->name('metode.destroy');
+Route::get('/metode-user', 'getUserMetode')->name('metode.user');
+
+
 });
             
+
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+
+
+     Route::controller(KeranjangController::class)->group(function () {
+Route::get('/keranjang',  'index')->name('keranjang.index');
+Route::post('/keranjang/tambah', 'store')->name('user.metode.create');
+Route::post('/keranjang/checkout','checkout')->name('keranjang.checkout');
+Route::patch('/keranjang/{id}',  'update')->name('keranjang.update');
+    Route::delete('/keranjang/{id}', 'destroy')->name('keranjang.destroy');
+
+
+
+
+   
+
+
+
+});
+
+ Route::get('/pesanan', [PembelianController::class, 'index'])->name('pesanan');
+
             
        
         });
@@ -120,23 +153,19 @@ Route::get('/search-pakaian',  'search')->name('pakaian.search');
 
 
 
-Route::get('/metode-user', [MetodePembayaranController::class, 'getUserMetode'])->name('metode.user');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
 
 
 
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');
-
-// Tambah item ke keranjang
-Route::post('/keranjang/tambah', [KeranjangController::class, 'store'])->name('user.metode.create');
-
-// Checkout item terpilih dari keranjang
-Route::post('/keranjang/checkout', [KeranjangController::class, 'checkout'])->name('keranjang.checkout');
 
 
-Route::patch('/keranjang/{id}', [KeranjangController::class, 'update'])->name('keranjang.update');
-    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+
+
+
+
+
+
+
 
 
 

@@ -45,12 +45,6 @@
 <!-- Search hanya di mobile --> <div class="px-4 py-2 sm:hidden"> <input type="text" id="searchPakaianMobile" placeholder="Cari produk di mobile..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black" > </div>
 
 
- @if(session('error'))
-        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-            {{ session('error') }}
-        </div>
-    @endif
-
     <!-- Products Grid -->
     <section class="py-16">
         <div class="container mx-auto px-4">
@@ -75,6 +69,17 @@
 </div>
 
 
+
+ @if(session('success'))
+        <div class="bg-green-600 text-white p-3 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+ @if(session('error'))
+        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
 <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 space-y-3 sm:space-y-0">
 
 

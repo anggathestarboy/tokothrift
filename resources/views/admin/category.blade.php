@@ -1,10 +1,6 @@
 
     <x-admin.sidebar id="sidebar" />
 
-    <!-- Mobile Menu Button -->
-    <button id="mobileMenuButton" class="fixed top-4 left-4 z-50 sm:hidden">
-        ☰
-    </button>
 
     <!-- Dashboard Content -->
     <main class="p-6 space-y-8">
@@ -36,7 +32,6 @@
 
         <!-- Search -->
         <div class="search-container">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">🔍</span>
             <input 
                 type="search" 
                 id="searchPakaian" 

@@ -211,9 +211,9 @@
         </div>
         <div class="flex flex-col mt-2 border border-gray-200 rounded-lg overflow-hidden">
             @if(Auth::user()->user_level === "Admin")
-                <a href="{{ url('/admin') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                <a href="{{ route('admin.admin') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
             @else
-                <a href="{{ url('/user/home') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                <a href="{{ route('user.dashboard') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
             @endif
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -223,8 +223,8 @@
     @else
         <!-- Jika belum login -->
         <button class="px-4 py-2 text-sm font-semibold text-black border border-black rounded-lg hover:bg-black hover:text-white transition-all duration-300 flex-1">
-            <a href="{{ route('auth.login') }}">Login</a> 
-        </button>
+            <a href="{{ route('auth.login') }}">Login
+        </button></a>
         <button class="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition-all duration-300 flex-1">
             <a href="{{ route('auth.register') }}">Register</a>
         </button>

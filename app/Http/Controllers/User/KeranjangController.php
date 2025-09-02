@@ -127,7 +127,7 @@ public function destroy($id)
             $item->delete();
         }
 
-        return redirect()->route('keranjang.index')->with('success', 'Checkout berhasil! Stok barang sudah diperbarui.');
+        return redirect()->route('keranjang.index')->with('success', 'Checkout berhasil!!.');
     }
 
 

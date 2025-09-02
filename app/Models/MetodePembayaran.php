@@ -22,5 +22,10 @@ class MetodePembayaran extends Model
         return $this->belongsTo(User::class, 'user_id', 'metode_pembayaran_user_id');
     }
 
+
+    public function pembelian()
+{
+    return $this->hasMany(Pembelian::class, 'pembelian_metode_pembayaran_id', 'metode_pembayaran_id');
+}
    
 }
