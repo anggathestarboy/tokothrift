@@ -10,14 +10,7 @@
             <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
                 Koleksi pakaian bekas berkualitas dengan harga terjangkau. Gaya unik, ramah lingkungan.
             </p>
-            <div class="flex justify-center space-x-4">
-                <button class="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-                    Mulai Belanja
-                </button>
-                <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition">
-                    Lihat Koleksi
-                </button>
-            </div>
+            
         </div>
     </section>
 
@@ -228,10 +221,10 @@ Checkout
                     </div>
                     <p class="text-gray-400 mb-4">Platform marketplace terpercaya untuk fashion thrift berkualitas tinggi.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/rizzz_anggara" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="https://discord.com/channels/rizzz_anggara9" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                        <a href="https://x.com/ItsKingAnggara" target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@thisiscoldman"  target="_blank" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 <div>
@@ -249,18 +242,15 @@ Checkout
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="{{  route('user.dashboard') }}" class="hover:text-white">Home</a></li>
                         <li><a href="{{  route('user.profile.index') }}" class="hover:text-white">Profile</a></li>
+                        <li><a href="{{  route('keranjang.index') }}" class="hover:text-white">Keranjang</a></li>
+ 
 
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-4">Newsletter</h5>
-                    <p class="text-gray-400 mb-4">Dapatkan update produk terbaru dan promo menarik.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Email kamu..." class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-white">
-                        <button class="bg-white text-black px-6 py-2 rounded-r-lg hover:bg-gray-200 transition">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
+                    <h5 class="font-semibold mb-4">Dapatkan pengalaman yang terbaik</h5>
+                    <p class="text-gray-400 mb-4">Kepuasan pelanggan adalah tugas kami, selalu ikuti perkembangan dari <i>Toko Thrift</i></p>
+
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">

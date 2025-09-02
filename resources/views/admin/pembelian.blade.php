@@ -41,6 +41,8 @@
                 <thead>
                     <tr>
                         <th class="px-6 py-4 text-white font-medium">Nama User</th>
+                        <th class="px-6 py-4 text-white font-medium">Alamat User</th>
+                        <th class="px-6 py-4 text-white font-medium">No Telepon</th>
                         <th class="px-6 py-4 text-white font-medium">Metode Pembayaran</th>
                         <th class="px-6 py-4 text-white font-medium">Detail Pakaian</th>
                         <th class="px-6 py-4 text-white font-medium">Total</th>
@@ -48,8 +50,10 @@
                 </thead>
                 <tbody>
                     @forelse($pembelian as $item)
-                        <tr class="table-row hover:bg-gray-750 transition-colors duration-200 border-b border-gray-700">
+                        <tr class="table-row hover:bg-gray-750 transition-colors duration-200 border-b border-gray-800">
                             <td class="px-6 py-4">{{ $item->user->user_fullname }}</td>
+                            <td class="px-6 py-4">{{ $item->user->user_alamat }}</td>
+                            <td class="px-6 py-4">{{ $item->user->user_nohp }}</td>
                             <td class="px-6 py-4">
                                 <span class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-xs font-medium">
                                     {{ $item->metodePembayaran->metode_pembayaran_jenis }}
@@ -58,7 +62,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex flex-col space-y-3">
                                     @foreach ($item->details as $detail)
-                                        <div class="bg-gray-700 p-3 rounded-lg shadow-sm">
+                                        <div class="bg-gray-800 p-3 rounded-lg shadow-sm">
                                             <p class="font-medium text-white">
                                                 {{ $detail->pakaian->pakaian_nama }}
                                             </p>
@@ -95,10 +99,20 @@
             <!-- MOBILE VERSION -->
             <div class="space-y-4 md:hidden p-4">
                 @forelse($pembelian as $item)
-                    <div class="bg-gray-700 rounded-lg p-4 shadow-md space-y-3 mobile-card">
+                    <div class=" rounded-lg p-4 shadow-md space-y-3 mobile-card">
+                     <h1 class="text-bold text-2xl"><strong>Pembelian {{ $loop->iteration }}</strong></h1>
+                     <br>
                         <div>
                             <p class="text-blue-300 text-xs">Nama User</p>
                             <p class="text-white font-semibold">{{ $item->user->user_fullname }}</p>
+                        </div>
+                        <div>
+                            <p class="text-blue-300 text-xs">Alamat User</p>
+                            <p class="text-white font-semibold">{{ $item->user->user_alamat }}</p>
+                        </div>
+                        <div>
+                            <p class="text-blue-300 text-xs">No Telepon User</p>
+                            <p class="text-white font-semibold">{{ $item->user->user_nohp }}</p>
                         </div>
                         <div>
                             <p class="text-blue-300 text-xs">Metode Pembayaran</p>
@@ -130,6 +144,7 @@
                             </p>
                         </div>
                     </div>
+                    
                 @empty
                     <div class="text-center text-gray-400 py-6">
                         <i class="fas fa-shopping-cart text-4xl text-gray-500 mb-3"></i>

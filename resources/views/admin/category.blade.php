@@ -6,18 +6,20 @@
     <main class="p-6 space-y-8">
         <!-- Form Tambah Data Kategori -->
         <div class="data-table fade-in">
-            <h3 class="text-lg font-semibold mb-4">Tambah Data Kategori</h3>
+            <br>
+            <h3 class="text-lg font-semibold mb-4 ml-4" >Tambah Data Kategori</h3>
 
             <form action="{{ route('admin.category.store') }}" method="POST">
                 @csrf
                 <div class="mb-4">
-                    <label class="form-label">Nama Kategori</label>
+                    <label class="form-label ml-4">Nama Kategori</label>
                     <input 
                         type="text" 
                         name="kategori_pakaian_nama"
-                        placeholder="Masukkan nama pakaian"
+                        placeholder="Masukkan nama kategori"
                         class="form-input"
                         required
+                        
                     >
                     @error('kategori_pakaian_nama')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

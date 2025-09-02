@@ -15,10 +15,22 @@
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <button class="bg-black text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 accent-shadow">
-                            JELAJAHI KOLEKSI
+         @if(!Auth::user())
+                            <a href="{{ route('auth.register')}}">DAFTAR SEKARANG</a>
+
+                     @elseif (Auth::user()->user_level === "Pengguna")  
+                            <a href="{{ route('user.dashboard')}}">PERGI KE HOME</a>
+                     @elseif (Auth::user()->user_level === "Admin")  
+                            <a href="{{ route('admin.admin')}}">PERGI KE DASHBOARD</a>
+                            
+
+                       
+                            
+
+                            @endif
                         </button>
                         <button class="border-2 border-black text-black px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-bold hover:bg-black hover:text-white transition-all duration-300">
-                            PELAJARI LEBIH LANJUT
+                            <a href="{{  route('home') }}#about">PELAJARI LEBIH LANJUT</a>
                         </button>
                     </div>
                 </div>
@@ -76,52 +88,58 @@
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="py-20 bg-white relative z-20">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-5xl md:text-6xl font-black mb-6 gradient-text">KOLEKSI KAMI</h2>
-                <div class="w-20 h-1 bg-black mx-auto mb-8"></div>
-                <p class="text-xl max-w-3xl mx-auto text-gray-700">
-                    Dari vintage klasik hingga trend modern, temukan berbagai pilihan fashion yang sesuai dengan gaya Anda
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                <div class="hover-lift">
-                    <div class="bg-gray-100 h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center border-2 border-black accent-shadow">
-                        <span class="text-2xl md:text-4xl font-black text-black">JAKET</span>
-                    </div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Jaket & Outerwear</h3>
-                    <p class="text-sm md:text-base text-gray-600">Koleksi jaket vintage dan modern</p>
-                </div>
-                
-                <div class="hover-lift">
-                    <div class="bg-black h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center text-white accent-shadow">
-                        <span class="text-2xl md:text-4xl font-black">KEMEJA</span>
-                    </div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Kemeja & Blouse</h3>
-                    <p class="text-sm md:text-base text-gray-600">Pilihan kemeja untuk berbagai acara</p>
-                </div>
-                
-                <div class="hover-lift">
-                    <div class="bg-gray-100 h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center border-2 border-black accent-shadow">
-                        <span class="text-2xl md:text-4xl font-black text-black">CELANA</span>
-                    </div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Celana & Jeans</h3>
-                    <p class="text-sm md:text-base text-gray-600">Denim dan celana berkualitas tinggi</p>
-                </div>
-                
-                <div class="hover-lift">
-                    <div class="bg-black h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center text-white accent-shadow">
-                        <span class="text-2xl md:text-4xl font-black">AKSESORIS</span>
-                    </div>
-                    <h3 class="text-lg md:text-xl font-bold mb-2">Aksesoris</h3>
-                    <p class="text-sm md:text-base text-gray-600">Tas, sepatu, dan aksesoris lainnya</p>
-                </div>
-            </div>
+ <section id="products" class="py-20 bg-white relative z-20">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-in-up">
+            <h2 class="text-5xl md:text-6xl font-black mb-6 gradient-text">KOLEKSI KAMI</h2>
+            <div class="w-20 h-1 bg-black mx-auto mb-8"></div>
+            <p class="text-xl max-w-3xl mx-auto text-gray-700">
+                Dari vintage klasik hingga trend modern, temukan berbagai pilihan fashion yang sesuai dengan gaya Anda
+            </p>
         </div>
-    </section>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            
+            <!-- Card Jaket -->
+            <div class="hover-lift">
+                <div class="bg-gray-100 h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center border-2 border-black accent-shadow overflow-hidden">
+                    <img src="img/jaket hitam.jpeg" alt="Jaket" class="object-cover w-full h-full">
+                </div>
+                <h3 class="text-lg md:text-xl font-bold mb-2">Jaket</h3>
+                <p class="text-sm md:text-base text-gray-600">Koleksi jaket keren dan modern</p>
+            </div>
+
+            <!-- Card Kemeja -->
+            <div class="hover-lift">
+                <div class="bg-black h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center accent-shadow overflow-hidden">
+                    <img src="img/aksata.jpg" alt="Kemeja" class="object-cover w-full h-full">
+                </div>
+                <h3 class="text-lg md:text-xl font-bold mb-2">Baju</h3>
+                <p class="text-sm md:text-base text-gray-600">Pilihan Baju dalam berbagai gaya</p>
+            </div>
+
+            <!-- Card Celana -->
+            <div class="hover-lift">
+                <div class="bg-gray-100 h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center border-2 border-black accent-shadow overflow-hidden">
+                    <img src="img/training.jpg" alt="Celana" class="object-cover w-full h-full">
+                </div>
+                <h3 class="text-lg md:text-xl font-bold mb-2">Celana</h3>
+                <p class="text-sm md:text-base text-gray-600">Model celana berkulitas tinggi</p>
+            </div>
+
+            <!-- Card Aksesoris -->
+            <div class="hover-lift">
+                <div class="bg-black h-48 md:h-64 rounded-lg mb-4 flex items-center justify-center accent-shadow overflow-hidden">
+                    <img src="img/sepatu nike merah.jpg" alt="Aksesoris" class="object-cover w-full h-full">
+                </div>
+                <h3 class="text-lg md:text-xl font-bold mb-2">Aksesoris</h3>
+                <p class="text-sm md:text-base text-gray-600">Menyediakan berbagai aksesoris</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 
 
    <x-home.footer />

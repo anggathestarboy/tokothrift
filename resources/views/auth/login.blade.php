@@ -30,11 +30,11 @@
           Login
         </button>
       </div>
-      <br>
+      
       @if (session('error'))
-    <div>
-        {{ session('error') }}
- 
+    <div >
+      
+        <p class="text-center text-red-600">  {{ session('error') }}</p>
     </div>
 @endif
    

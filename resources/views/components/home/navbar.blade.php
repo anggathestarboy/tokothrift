@@ -135,7 +135,7 @@
 </head>
 <body class="bg-white text-black overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-black/10">
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-black/10" id="atas">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="text-2xl font-black tracking-wider">
@@ -143,9 +143,9 @@
                 </div>
                 <div class="hidden md:flex items-center space-x-6">
                     <div class="flex space-x-8">
-                        <a href="/" class="hover:text-gray-600 transition-colors duration-300 font-medium">Home</a>
-                        <a href="/#about" class="hover:text-gray-600 transition-colors duration-300 font-medium">Tentang</a>
-                        <a href="/#products" class="hover:text-gray-600 transition-colors duration-300 font-medium">Produk</a>
+                        <a href="{{ route('home') }}" class="hover:text-gray-600 transition-colors duration-300 font-medium">Home</a>
+                        <a href="{{ route('home') }}#about" class="hover:text-gray-600 transition-colors duration-300 font-medium">Tentang</a>
+                        <a href="{{ route('home') }}#products" class="hover:text-gray-600 transition-colors duration-300 font-medium">Produk</a>
                     </div>
                   <div class="flex space-x-3 ml-8">
     @if(Auth::check())
@@ -162,9 +162,14 @@
             <!-- Dropdown saat diklik / hover -->
             <div class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden group-hover:block">
                 @if(Auth::user()->user_level === "Admin")
-                    <a href="{{ url('/admin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                    <a href="{{ route('admin.admin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                    <a href="{{ route('admin.pakaian.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Pakaian</a>
+                    <a href="{{ route('admin.category') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Kategori</a>
+                    <a href="{{ route('admin.pembelian') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lihat Pembelian</a>
                 @else
-                    <a href="{{ url('/user/home') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                    <a href="{{ route('user.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                    <a href="{{ route('keranjang.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Keranjang</a>
+                    <a href="{{ route('pesanan') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Riwayat Pembelian </a>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -196,9 +201,9 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mobile-menu-slide">
                 <div class="flex flex-col space-y-4 mt-4 pt-4 border-t border-black/10">
-                    <a href="/" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Home</a>
-                    <a href="/#about" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Tentang</a>
-                    <a href="/#products" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Produk</a>
+                    <a href="{{  route('home') }} " class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Home</a>
+                    <a href="{{  route('home') }}#about" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Tentang</a>
+                    <a href="{{  route('home') }} #products" class="text-black hover:text-gray-600 transition-colors duration-300 font-medium py-2">Produk</a>
              <div class="flex flex-col space-y-2 pt-4 pb-2">
     @if(Auth::check())
         <!-- Jika sudah login -->
@@ -212,8 +217,10 @@
         <div class="flex flex-col mt-2 border border-gray-200 rounded-lg overflow-hidden">
             @if(Auth::user()->user_level === "Admin")
                 <a href="{{ route('admin.admin') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard Admin</a>
+                <a href="{{ route('admin.pakaian.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kelola Pakaian</a>
             @else
                 <a href="{{ route('user.dashboard') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard User</a>
+                <a href="{{ route('keranjang.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Lihat Keranjang</a>
             @endif
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
