@@ -92,7 +92,7 @@
                     <span class="price-tag">Rp {{ number_format($data->pakaian_harga, 2, ',', '.') }}</span>
        <button data-id="{{ $data->pakaian_id }}" 
         class="btn-checkout bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-Checkout
+Beli Sekarang
 
 </button>
  {{-- Tombol Keranjang --}}

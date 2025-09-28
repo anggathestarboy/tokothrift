@@ -101,8 +101,10 @@
                                 
                                 <div class="text-right">
                                     <p class="text-gray-600 text-sm">Subtotal</p>
-                                    <p class="text-lg font-bold text-gray-600">Rp {{ number_format($item->keranjang_total_harga, 0, ',', '.') }}</p>
+                                    <p class="text-lg font-bold text-gray-600 subtotal-amount" data-subtotal="{{ $item->keranjang_total_harga }}">Rp {{ number_format($item->keranjang_total_harga, 0, ',', '.') }}</p>
                                 </div>
+
+                                
                             </div>
                         </div>
                     </div>
@@ -110,7 +112,19 @@
             @endforeach
         </div>
 
-       
+        {{-- Ringkasan Total --}}
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6 border border-gray-100">
+            <h3 class="font-bold text-lg mb-4 text-gray-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Ringkasan Belanja
+            </h3>
+            <div class="flex justify-between text-gray-800">
+                <p>Total Harga</p>
+                <p id="totalAmount" class="font-bold">Rp 0</p>
+            </div>
+        </div>
 
         {{-- FORM CHECKOUT --}}
         <form action="{{ route('keranjang.checkout') }}" method="POST" id="checkoutForm">
@@ -158,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkAllMobile) {
         checkAllMobile.addEventListener('change', function() {
             document.querySelectorAll('.checkItem').forEach(cb => cb.checked = this.checked);
+            updateTotal(); // Update total setelah select all
         });
     }
     
@@ -177,6 +192,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Fungsi baru untuk update total
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('.checkItem:checked').forEach(function(checkbox) {
+            // Temukan parent item div
+            const itemDiv = checkbox.closest('.bg-white.rounded-xl');
+            // Ambil subtotal dari data attribute
+            const subtotalElem = itemDiv.querySelector('.subtotal-amount');
+            if (subtotalElem) {
+                total += parseInt(subtotalElem.dataset.subtotal) || 0;
+            }
+        });
+        
+        // Format total ke format Indonesia (ribuan dipisah titik)
+        const formattedTotal = total.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        
+        // Update elemen total
+        document.getElementById('totalAmount').textContent = 'Rp ' + formattedTotal;
+    }
+    
+    // Listen ke change pada setiap item checkbox
+    document.querySelectorAll('.checkItem').forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateTotal);
+    });
+    
+    // Hitung total awal saat page load (jika ada item checked by default)
+    updateTotal();
 });
 </script>
 

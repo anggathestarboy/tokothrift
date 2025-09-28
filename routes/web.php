@@ -12,6 +12,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\InfoPembelianController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\KeranjangController;
 use App\Http\Middleware\CheckIsUserRoleMiddleware;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -21,9 +22,7 @@ use App\Models\Keranjang;
 use App\Http\Controllers\User\PembelianController;
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
