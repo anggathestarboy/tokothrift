@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\admin\InfoPembelianController;
+use App\Http\Controllers\Admin\InfoPembelianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\KeranjangController;
 use App\Http\Middleware\CheckIsUserRoleMiddleware;
